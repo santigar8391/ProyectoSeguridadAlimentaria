@@ -1,0 +1,13 @@
+[
+  {"codigoDistrito": "01", "descripcionDistrito": "DSucumbios"},
+  {"codigoDistrito": "02", "descripcionDistrito": "DOrellana"},
+  {"codigoDistrito": "03", "descripcionDistrito": "DNapo"},
+  {"codigoDistrito": "04", "descripcionDistrito": "DMorona Santiago"},
+  {"codigoDistrito": "05", "descripcionDistrito": "DAzuay"},
+  {"codigoDistrito": "06", "descripcionDistrito": "DCarchi"},
+  {"codigoDistrito": "07", "descripcionDistrito": "DChimborazo"},
+  {"codigoDistrito": "08", "descripcionDistrito": "DCotopaxi"},
+  {"codigoDistrito": "09", "descripcionDistrito": "DLoja"},
+  {"codigoDistrito": "10", "descripcionDistrito": "DImbabura"},
+  {"codigoDistrito": "11", "descripcionDistrito": "DGuayas"}
+]

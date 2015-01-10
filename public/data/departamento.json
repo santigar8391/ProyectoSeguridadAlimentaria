@@ -1,0 +1,15 @@
+[
+  {"codigoDepartamento": "01", "descripcionDepartamento": "pequeña"},
+  {"codigoDepartamento": "02", "descripcionDepartamento": "mediana"},
+  {"codigoDepartamento": "03", "descripcionDepartamento": "grande"},
+  {"codigoDepartamento": "04", "descripcionDepartamento": "pequeña"},
+  {"codigoDepartamento": "05", "descripcionDepartamento": "mediana"},
+  {"codigoDepartamento": "06", "descripcionDepartamento": "grande"},
+  {"codigoDepartamento": "07", "descripcionDepartamento": "grande"},
+  {"codigoDepartamento": "08", "descripcionDepartamento": "mediana"},
+  {"codigoDepartamento": "09", "descripcionDepartamento": "pequeña"},
+  {"codigoDepartamento": "10", "descripcionDepartamento": "pequeña"},
+  {"codigoDepartamento": "11", "descripcionDepartamento": "mediana"},
+  {"codigoDepartamento": "12", "descripcionDepartamento": "grande"},
+  {"codigoDepartamento": "13", "descripcionDepartamento": "mediana"}
+]
