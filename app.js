@@ -35,7 +35,8 @@ var c = new Client();
 c.connect({
     host: '127.0.0.1',
     user: 'root',
-    password: 'H3rm3sSanch3z'
+    password: 'H3rm3sSanch3z',
+    db: 'proyectoSeguridad'
 });
 
 c.on('connect', function() {
@@ -48,8 +49,8 @@ c.on('connect', function() {
         console.log('Client closed');
     });
 
-//-----------------------------------------------
-c.query('SHOW DATABASES')
+c.query('SELECT * FROM producto WHERE idproducto = :idproducto AND descproducto = :name',
+    { idproducto: 1, name: 'banana' })
     .on('result', function(res) {
         res.on('row', function(row) {
             console.log('Result row: ' + inspect(row));
@@ -64,4 +65,51 @@ c.query('SHOW DATABASES')
     .on('end', function() {
         console.log('Done with all results');
     });
+
+/*c.query('SELECT * FROM producto WHERE idproducto = ? AND descproducto = ?',
+    [ 1, 'banana' ])
+    .on('result', function(res) {
+        res.on('row', function(row) {
+            console.log('Result row: ' + inspect(row));
+        })
+            .on('error', function(err) {
+                console.log('Result error: ' + inspect(err));
+            })
+            .on('end', function(info) {
+                console.log('Result finished successfully');
+            });
+    })
+    .on('end', function() {
+        console.log('Done with all results');
+    });*/
+
 c.end();
+
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------
+/*c.query('SHOW DATABASES')
+    .on('result', function(res) {
+        res.on('row', function(row) {
+            console.log('Result row: ' + inspect(row));
+        })
+            .on('error', function(err) {
+                console.log('Result error: ' + inspect(err));
+            })
+            .on('end', function(info) {
+                console.log('Result finished successfully');
+            });
+    })
+    .on('end', function() {
+        console.log('Done with all results');
+    });
+c.end();*/
