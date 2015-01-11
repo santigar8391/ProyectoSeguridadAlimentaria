@@ -1,0 +1,10 @@
+CREATE DATABASE proyectoSeguridad;
+
+USE proyectoSeguridad;
+
+CREATE TABLE IF NOT EXISTS producto (
+    idproducto int(5) NOT NULL AUTO_INCREMENT,
+    descprocducto varchar(50) DEFAULT NULL,
+    PRIMARY KEY(idproducto)
+    )
+    engine=TokuDB;
