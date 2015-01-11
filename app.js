@@ -85,17 +85,6 @@ c.query('SELECT * FROM producto WHERE idproducto = :idproducto AND descproducto 
 
 c.end();
 
-
-
-
-
-
-
-
-
-
-
-
 //-----------------------------------------------
 /*c.query('SHOW DATABASES')
     .on('result', function(res) {
