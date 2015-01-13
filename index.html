@@ -16,18 +16,23 @@
                 <legen>Ubicaciones geograficas</legen>
 
                 <label>Departementos : </label>
-                <select ng-model="modelDepartamento" ng-options="d.codigoDepartamento as d.descripcionDepartamento for d in departamento"></select>
+                <select ng-model="modelDepartamento" ng-change="cargarProvincia()" ng-options="d.codigoDepartamento as d.descripcionDepartamento for d in departamentoCiclo"></select>
 
                 <label>Provincias :</label>
                 <!--<select ng-model="modelProvincia" ng-options="p.codigoProvincia as p.descripcionProvincia for p in provincia"></select>-->
-                <select ng-model="modelProvincia">
-                    <option ng-repeat="p in provincia | filter:{codigoDepartamento:modelDepartamento}" value="{{p.codigoProvincia}}">
+                <select ng-model="modelProvincia" ng-change="cargarDistrito()">
+                    <option ng-repeat="p in provinciaCiclo" value="{{p.codigoProvincia}}">
                         {{p.descripcionProvincia}}
                     </option>
+
+                    <!--<option ng-repeat="p in provinciaCiclo | filter:{codigoDepartamento:modelDepartamento}" value="{{p.codigoProvincia}}">
+                        {{p.descripcionProvincia}}
+                    </option>-->
+
                 </select>
 
                 <label>Distritos : </label>
-                <select ng-model="modelDistrito" ng-options="dis.codigoDistrito as dis.descripcionDistrito for dis in distrito"></select>
+                <select ng-model="modelDistrito" ng-options="dis.codigoDistrito as dis.descripcionDistrito for dis in distritoCiclo"></select>
 
             </fieldset>
             <p> Departamento {{ modelDepartamento }}</p>
