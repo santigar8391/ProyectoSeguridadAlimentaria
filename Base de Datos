@@ -8,3 +8,7 @@ CREATE TABLE IF NOT EXISTS producto (
     PRIMARY KEY(idproducto)
     );
     --engine=TokuDB;
+
+
+    --MODIFIQUE ESTE ARCHIVO DE LA BASE DE DATOS
+    -- HAY QUE UTILIZAR TOKUDB
