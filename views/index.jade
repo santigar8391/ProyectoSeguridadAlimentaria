@@ -1,6 +1,5 @@
-doctype html
-html (lang='es')
-    head
-        title Listas
-    body
-        p Hola mundo desde jade
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
