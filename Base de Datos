@@ -2,6 +2,8 @@ CREATE DATABASE proyectoSeguridad;
 
 USE proyectoSeguridad;
 
+--CREACIÓN DE TABLAS
+
 CREATE TABLE IF NOT EXISTS producto (
     idproducto int(11) NOT NULL AUTO_INCREMENT,
     descproducto varchar(30) DEFAULT NULL,
@@ -9,6 +11,10 @@ CREATE TABLE IF NOT EXISTS producto (
     );
     --engine=TokuDB;
 
+--INGRESO DE DATOS
 
-    --MODIFIQUE ESTE ARCHIVO DE LA BASE DE DATOS
-    -- HAY QUE UTILIZAR TOKUDB
+INSERT INTO producto (idproducto, descproducto) VALUES(NULL, 'banana');
+INSERT INTO producto VALUES (NULL, 'Carne');
+INSERT INTO producto (descproducto) VALUES ('Leche');
+INSERT INTO producto (descproducto) VALUES ('Pan'), ('Soya'), ('Papa'), ('Miel'), ('Borrego'), ('Trigo'), ('Avena');
+
