@@ -8,6 +8,17 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+var inspect = require('util').inspect;
+var Client = require('mariasql');
+
+var c = new Client();
+c.connect({
+    host: '127.0.0.1',
+    user: 'root',
+    password: 'H3rm3sSanch3z',
+    db: 'proyectoSeguridad'
+});
+
 var app = express();
 
 // view engine setup
@@ -56,5 +67,16 @@ app.use(function(err, req, res, next) {
     });
 });
 
+// verifica la conexión a la base de datos
+c.on('connect', function() {
+    console.log('Client connected');
+    })
+    .on('error', function(err) {
+        console.log('Client error: ' + err);
+    })
+    .on('close', function(hadError) {
+        console.log('Client closed');
+    });
 
 module.exports = app;
+
