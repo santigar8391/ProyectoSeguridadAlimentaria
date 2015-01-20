@@ -4,20 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//var data = require('./data.js');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+//var common = require('./routes/common');
 
-var inspect = require('util').inspect;
-var Client = require('mariasql');
-
-var c = new Client();
-c.connect({
-    host: '127.0.0.1',
-    user: 'root',
-    password: 'H3rm3sSanch3z',
-    db: 'proyectoSeguridad'
-});
 
 var app = express();
 
@@ -67,16 +59,45 @@ app.use(function(err, req, res, next) {
     });
 });
 
-// verifica la conexión a la base de datos
-c.on('connect', function() {
-    console.log('Client connected');
-    })
-    .on('error', function(err) {
-        console.log('Client error: ' + err);
-    })
-    .on('close', function(hadError) {
-        console.log('Client closed');
-    });
+// parte de desarrollo
 
+/*
+var subApp = express();
+subApp.get('/surveys', function (req, res, next) {
+    next();
+    console.log('Hola');
+})
+app.use(subApp);
+*/
+app.get('/surveys', function (req, res) {
+    console.log('Chucha madre no sale!!!');
+    res.end();
+});
+/*
+
+app.get('/surveys', function (req, res, next){
+    console.log(listado_productos());
+    res.send('/')
+});
+
+listado_productos = function(){
+    var producto = {};
+    client.query('SELECT idproducto, descproducto FROM producto')
+        .on('result', function(res) {
+            res.on('row', function(row) {
+                producto.push({idprod: row['idproducto'], descprod: row['descproducto']});
+            })
+                .on('error', function(err) {
+                    console.log('Result error: ' + inspect(err));
+                })
+                .on('end', function(info) {
+                    console.log('Result finished successfully');
+                });
+        })
+        .on('end', function() {
+            return producto;
+        });
+}
+*/
 module.exports = app;
 
