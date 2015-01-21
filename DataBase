@@ -17,3 +17,5 @@ INSERT INTO producto (idproducto, descproducto) VALUES(NULL, 'banana');
 INSERT INTO producto VALUES (NULL, 'Carne');
 INSERT INTO producto (descproducto) VALUES ('Leche');
 INSERT INTO producto (descproducto) VALUES ('Pan'), ('Soya'), ('Papa'), ('Miel'), ('Borrego'), ('Trigo'), ('Avena');
+
+--SELECT idproducto, descproducto FROM producto

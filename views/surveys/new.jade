@@ -1,3 +1,24 @@
-//
-   Created by santiago on 16/01/15.
-
+//Created by santiago on 16/01/15
+extends ../layout
+block content
+   h1= title
+   h2 Listado de #{data}
+   if (data)
+      table.table
+      tr
+         th Identificador
+         th Descripción
+         th &nbsp;
+         th &nbsp;
+         each producto in data
+            tr
+               td #{data.producto.id}
+               td #{data.producto.descripcion}
+               td
+                  a.btn.btn-default(href='/surveys/edit') Editar
+               td
+                  form(method='post', action='/surveys/delete')
+                     input(name='_method', value='DELETE', type='hidden')
+                     button.btn.btn-danger(type='submit') Delete
+   else
+      p No tiene ningún elemento

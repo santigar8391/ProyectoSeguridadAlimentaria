@@ -59,45 +59,5 @@ app.use(function(err, req, res, next) {
     });
 });
 
-// parte de desarrollo
-
-/*
-var subApp = express();
-subApp.get('/surveys', function (req, res, next) {
-    next();
-    console.log('Hola');
-})
-app.use(subApp);
-*/
-app.get('/surveys', function (req, res) {
-    console.log('Chucha madre no sale!!!');
-    res.end();
-});
-/*
-
-app.get('/surveys', function (req, res, next){
-    console.log(listado_productos());
-    res.send('/')
-});
-
-listado_productos = function(){
-    var producto = {};
-    client.query('SELECT idproducto, descproducto FROM producto')
-        .on('result', function(res) {
-            res.on('row', function(row) {
-                producto.push({idprod: row['idproducto'], descprod: row['descproducto']});
-            })
-                .on('error', function(err) {
-                    console.log('Result error: ' + inspect(err));
-                })
-                .on('end', function(info) {
-                    console.log('Result finished successfully');
-                });
-        })
-        .on('end', function() {
-            return producto;
-        });
-}
-*/
 module.exports = app;
 

@@ -1,16 +1,7 @@
 // Created by santiago on 16/01/15.
 extends ../layout
 block content
-   h1 Listado de Productos
+   h1= title
+   h2 Listado de Productos
 
-   if tablaprod.results.lenght
-   table.table
-      tr
-         th Identificador
-         th Descripción
-      each producto in tablaprod
-         tr
-            td #{producto.idprod}
-            td #{producto.descprod}
-   else
-      p You don't have any tasks!
+   a(href='/surveys/new', class='btn btn-primary') Añadir Encuesta

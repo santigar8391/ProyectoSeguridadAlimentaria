@@ -30,12 +30,13 @@ exports.connect = function() {
     );
 }
 
-exports.getlistaproductos = function(){
-    var producto = {};
-    client.query('SELECT idproducto, descproducto FROM producto')
+exports.getProductos = function() {
+    var data = [];
+
+    client.query('SELECT * FROM producto;')
         .on('result', function(res) {
             res.on('row', function(row) {
-                producto.push({idprod: row['idproducto'], descprod: row['descproducto']});
+                data.push(row);
             })
                 .on('error', function(err) {
                     console.log('Result error: ' + inspect(err));
@@ -45,7 +46,7 @@ exports.getlistaproductos = function(){
                 });
         })
         .on('end', function() {
-            return producto;
+            return (JSON.stringify(data));
         });
 }
 
