@@ -30,9 +30,8 @@ exports.connect = function() {
     );
 }
 
-exports.getProductos = function() {
+exports.getProductos = function(cb) {
     var data = [];
-
     client.query('SELECT * FROM producto;')
         .on('result', function(res) {
             res.on('row', function(row) {
@@ -46,11 +45,9 @@ exports.getProductos = function() {
                 });
         })
         .on('end', function() {
-            return (JSON.stringify(data));
+            cb(data);
         });
 }
-
-
 
 /*
 exports.insertPoint = function(lon, lat) {

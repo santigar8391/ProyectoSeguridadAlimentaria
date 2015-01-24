@@ -24,12 +24,21 @@ router.get('/surveys', function(req, res, next){
 });
 
 // get página nueva encuesta
-router.get('/surveys/new', function(req, res, next){
+/*router.get('/surveys/new',
+function(req, res, next){
   var data = require('../data.js');
 
   data.connect();
-  var datos = data.getProductos();
+  var datos = data.getProductos(res);
   console.log("Datos de la Base de Datos" + datos);
   res.render('surveys/new', { title: 'Nuevo', lista: datos});
+});*/
+var data = require('../data.js');
+data.connect();
+router.get('/surveys/new', function(req, res) {
+  data.getProductos(function(datos){
+    //res.json(datos);
+    res.render('surveys/new', { title: 'Lista de datos desde index.js de router', lista: datos});
+  });
 });
 module.exports = router;

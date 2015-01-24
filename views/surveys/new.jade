@@ -2,18 +2,18 @@
 extends ../layout
 block content
    h1= title
-   h2 Listado de #{data}
-   if (data)
-      table.table
+   //#h2 Listado de #{lista}
+   if (lista)
+      table
       tr
          th Identificador
          th Descripción
          th &nbsp;
          th &nbsp;
-         each producto in data
+         each dat in lista
             tr
-               td #{data.producto.id}
-               td #{data.producto.descripcion}
+               td #{dat.idproducto}
+               td #{dat.descproducto}
                td
                   a.btn.btn-default(href='/surveys/edit') Editar
                td
