@@ -1,8 +1,28 @@
 /**
  * Created by santiago on 19/01/15.
  */
+var data = require('../data.js');
 
-var util = require('util');
+// get página encuestas.
+exports.get_lista_encuesta = function(req, res, next){
+    res.render('surveys/index',{ title: 'Encuestas'})
+}
+
+// get nueva encuesta
+exports.get_nueva_encuesta = function(req, res) {
+    data.connect();
+    data.getProductos(function(datos){
+        //res.json(datos);
+        res.render('surveys/new', { title: 'Lista de datos desde index.js de router', lista: datos});
+    });
+}
+
+
+
+
+
+
+
 /*
 app.get('/tasks', function(req, res){
     Task.find({}, function (err, docs) {
@@ -13,14 +33,6 @@ app.get('/tasks', function(req, res){
     });
 });
 */
-exports.listaproductos = function(req, res) {
-    var data = require('../data.js');
-    data.connect();
-    var datos = data.getlistaproductos();
-    console.log(datos);
-    res.send(datos);
-
-}
 
 /*
 var fs = require('fs');

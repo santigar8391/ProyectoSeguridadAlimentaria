@@ -4,11 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var router = express.Router();
 //var data = require('./data.js');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-//var common = require('./routes/common');
+var common = require('./routes/common');
 
 var app = express();
 
@@ -26,7 +27,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/surveys/new',routes);
+
+
+router.get('/sample', function(req, res) {
+    res.send('this is a sample!');
+});
+
+
+/*
+ // route middleware that will happen on every request
+ router.use(function(req, res, next) {
+
+ // log each request to the console
+ console.log(req.method, req.url);
+
+ // continue doing what we were doing and go to the route
+ next();
+ });
+ */
+
+
+
+// gestión de rutas
+router.get('/surveys', common.get_lista_encuesta);
+router.get('/surveys/new', common.get_nueva_encuesta);
+
+app.use('/', router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -58,6 +84,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 module.exports = app;
 
