@@ -20,8 +20,9 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+//app.use(bodyParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -29,28 +30,20 @@ app.use('/', routes);
 app.use('/users', users);
 
 
-router.get('/sample', function(req, res) {
-    res.send('this is a sample!');
-});
 
-
-/*
- // route middleware that will happen on every request
- router.use(function(req, res, next) {
-
- // log each request to the console
- console.log(req.method, req.url);
-
- // continue doing what we were doing and go to the route
- next();
- });
- */
+// GESTIÓN DE RUTAS
+router.get('/producto', common.get_lista_producto);
+router.get('/producto/nuevo', common.set_nuevo_producto);
+router.post('/producto', common.insert_nuevo_producto);
 
 
 
-// gestión de rutas
-router.get('/surveys', common.get_lista_encuesta);
-router.get('/surveys/new', common.get_nueva_encuesta);
+
+/*router.post("/producto", function(req, res) {
+ console.log(req.body);
+ res.send({ status: 'SUCCESS' });
+ });*/
+
 
 app.use('/', router);
 

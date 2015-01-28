@@ -1,0 +1,17 @@
+//
+   Created by santiago on 28/01/15.
+extends ../layout
+
+block content
+
+    h1 Nuevo Producto
+    form(role='form', method='post', action='/producto')
+        fieldset
+            legend Agregar Nuevo Producto
+            div.form-group
+                label Descripción del Producto
+                input(name='desc_producto', class='form-control')
+                label Número de Grupo
+                input(name='num_grupo', class='form-control')
+            button.btn.btn-primary(type='submit') Agregar
+            button.btn.btn-default(type='reset') Borrar

@@ -1,0 +1,27 @@
+// Created by santiago on 16/01/15.
+extends ../layout
+block content
+    h1= title
+    a(href='/producto/nuevo', class='btn btn-primary') Agregar Producto Nuevo
+    h2 Listado de Productos
+    if (lista)
+        table.table-responsive
+            tr
+                th Identificador
+                th Descripción
+                th Grupo
+                th &nbsp;
+                th &nbsp;
+                each dat in lista
+                    tr
+                        td #{dat.id_producto}
+                        td #{dat.desc_producto}
+                        td #{dat.num_grupo}
+                        td
+                            a.btn.btn-default(href='/producto/editar') Editar
+                        td
+                            form(method='post', action='/producto/eliminar')
+                            input(name='_method', value='DELETE', type='hidden')
+                            button.btn.btn-danger(type='submit') Eliminar
+    else
+        p No tiene ningún producto en la base de datos.
