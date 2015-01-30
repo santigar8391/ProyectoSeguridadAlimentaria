@@ -44,6 +44,7 @@ exports.insertar = function(req,res){
     //var num_grup = req.body.num_grupo;
     var desc_prod = req.body.desc_producto;
     var id_grupo;
+    console.log(req.body.num_grupo);
     data_grupo.db_get_listado(function(datos){
         for (var i in datos) {
             if (datos[i].num_grupo == req.body.num_grupo)
