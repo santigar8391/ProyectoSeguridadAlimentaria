@@ -12,6 +12,10 @@ block content
                 label Descripción del Producto
                 input(name='desc_producto', class='form-control')
                 label Número de Grupo
-                input(name='num_grupo', class='form-control')
+                //input(name='num_grupo', class='form-control')
+                select
+                if(lista)
+                    each grupo in lista
+                        option(value=#{grupo.num_grupo})
             button.btn.btn-primary(type='submit') Agregar
             button.btn.btn-default(type='reset') Borrar
