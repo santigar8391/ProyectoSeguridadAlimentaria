@@ -21,20 +21,43 @@ exports.get_nuevo = function(req, res) {
 
 // obtiene página editar producto
 exports.get_editar = function(req, res){
-
+    data_producto.connect();
+    data_grupo.connect();
+    try{
+        data_producto.db_eliminar(req.params.id_producto, function(elemento){
+            if (elemento){
+                data_grupo.db_get_listado(function(listado){
+                    if(listado){
+                        res.render('/producto/editar.jade', { dato: elemento, lista: listado });
+                    }else{
+                        console.log('No se obtuvo el listado de la tabla "grupo"');
+                    }
+                });
+            }else{
+                console.log('No se obtuvo el elemento de la tabla "producto".');
+            }
+        });
+    }catch (e){
+        console.log('Error: '+ e);
+    }
 };
 
 // elimina un producto de la tabla "producto"
 exports.eliminar = function(req, res){
     data_producto.connect();
     console.log("id de producto: " + req.params.id_producto);
-    data_producto.db_eliminar(req.params.id_producto, function(bandera){
-        if (bandera){
-            res.redirect('/producto');
-        }else{
-            console.log('No sirve el método eliminar de producto.js.');
-        }
-    });
+    try{
+        data_producto.db_eliminar(req.params.id_producto, function(bandera){
+            if (bandera){
+                res.redirect('/producto');
+            }else{
+                console.log('No sirve el método eliminar de producto.js.');
+            }
+        });
+    }catch (e){
+        Console.log('Error: '+ e);
+    }
+
 }
 
 // inserta un nuevo producto en la tabla "producto"

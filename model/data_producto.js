@@ -62,6 +62,28 @@ exports.db_eliminar = function(id_producto, cb) {
             });
 }
 
+// obtiene un elemento de la tablas "producto" join "producto" a partir de "id_producto"
+exports.db_get_elemento_by_id = function(id_producto, cb) {
+    var data = [];
+    client.query("SELECT id_producto, desc_producto, num_grupo FROM producto INNER JOIN grupo "+
+    "ON producto.id_grupo = grupo.id_grupo WHERE id_producto = :id;",{id: id_producto})
+        .on('result', function(res) {
+            res.on('row', function(row) {
+                data.push(row);
+            })
+                .on('error', function(err) {
+                    console.log('Result error: ' + inspect(err));
+                })
+                .on('end', function(info) {
+                    console.log('Result finished successfully');
+                });
+        })
+        .on('end', function() {
+            cb(data);
+        });
+}
+
+
 // desconecta la base de datos
 exports.disconnect = function() {
     client.end();

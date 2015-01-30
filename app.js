@@ -29,7 +29,6 @@ app.use('/', routes);
 app.use('/users', users);
 
 
-
 // GESTIÓN DE RUTAS
 router.get('/producto', producto.get_listado);
 router.get('/producto/nuevo', producto.get_nuevo);
@@ -37,12 +36,6 @@ router.get('producto/editar/:id_producto', producto.get_editar);
 router.get('/producto/eliminar/:id_producto', producto.eliminar);
 router.post('/producto/nuevo', producto.insertar);
 router.post('/producto/editar/:id_producto', producto.editar);
-
-
-/*router.post("/producto", function(req, res) {
- console.log(req.body);
- res.send({ status: 'SUCCESS' });
- });*/
 
 
 app.use('/', router);
