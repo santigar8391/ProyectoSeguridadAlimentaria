@@ -13,7 +13,10 @@ exports.get_listado = function(req, res, next){
 
 // obtiene página nuevo producto
 exports.get_nuevo = function(req, res) {
-    res.render('producto/nuevo.jade', { title: 'Nuevo Producto'});
+    data_grupo.connect();
+    data_grupo.db_get_listado(function(datos){
+        res.render('producto/nuevo.jade', { title: 'Nuevo Producto', lista: datos});
+    });
 }
 
 // obtiene página editar producto
