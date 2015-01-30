@@ -5,11 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var router = express.Router();
-//var data = require('./data.js');
+//var data = require('./data_producto.js');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var common = require('./routes/common');
+var producto = require('./routes/producto');
 
 var app = express();
 
@@ -20,7 +20,6 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-//app.use(bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -32,11 +31,12 @@ app.use('/users', users);
 
 
 // GESTIÓN DE RUTAS
-router.get('/producto', common.get_lista_producto);
-router.get('/producto/nuevo', common.set_nuevo_producto);
-router.post('/producto', common.insert_nuevo_producto);
-
-
+router.get('/producto', producto.get_listado);
+router.get('/producto/nuevo', producto.get_nuevo);
+router.get('producto/editar/:id_producto', producto.get_editar);
+router.get('/producto/eliminar/:id_producto', producto.eliminar);
+router.post('/producto/nuevo', producto.insertar);
+router.post('/producto/editar/:id_producto', producto.editar);
 
 
 /*router.post("/producto", function(req, res) {

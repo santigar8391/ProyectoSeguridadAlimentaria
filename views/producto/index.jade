@@ -12,16 +12,14 @@ block content
                 th Grupo
                 th &nbsp;
                 th &nbsp;
-                each dat in lista
+                each dato in lista
                     tr
-                        td #{dat.id_producto}
-                        td #{dat.desc_producto}
-                        td #{dat.num_grupo}
+                        td #{dato.id_producto}
+                        td #{dato.desc_producto}
+                        td #{dato.num_grupo}
                         td
-                            a.btn.btn-default(href='/producto/editar') Editar
+                            a.btn.btn-default(href='/producto/editar/'+dato.id_producto) Editar
                         td
-                            form(method='post', action='/producto/eliminar')
-                            input(name='_method', value='DELETE', type='hidden')
-                            button.btn.btn-danger(type='submit') Eliminar
+                            a.btn.btn-danger(href='/producto/eliminar/'+dato.id_producto) Eliminar
     else
         p No tiene ningún producto en la base de datos.
