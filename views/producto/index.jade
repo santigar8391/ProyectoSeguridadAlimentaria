@@ -18,7 +18,7 @@ block content
                         td #{dato.desc_producto}
                         td #{dato.num_grupo}
                         td
-                            a.btn.btn-default(href='/producto/editar/'+dato.id_producto) Editar
+                            a.btn.btn-default(href='/producto/#{dato.id_producto}/editar') Editar
                         td
                             a.btn.btn-danger(href='/producto/eliminar/'+dato.id_producto) Eliminar
     else

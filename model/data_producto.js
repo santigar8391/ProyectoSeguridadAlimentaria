@@ -83,6 +83,16 @@ exports.db_get_elemento_by_id = function(id_producto, cb) {
         });
 }
 
+exports.db_actualizar = function (id_grupo, desc_prod, cb){
+    client.query("UPDATE producto SET id_grupo = ?, desc_producto= ? WHERE id_producto = ?;",[id_grupo, desc_producto, id_producto])
+        .on('error', function(err) {
+            console.log('Result error: ' + inspect(err));
+        })
+        .on('end', function() {
+            console.log('Result finished successfully');
+            cb(true);
+        });
+}
 
 // desconecta la base de datos
 exports.disconnect = function() {

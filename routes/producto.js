@@ -21,14 +21,18 @@ exports.get_nuevo = function(req, res) {
 
 // obtiene página editar producto
 exports.get_editar = function(req, res){
+    console.log('Accediendo al método "get_editar"');
     data_producto.connect();
     data_grupo.connect();
     try{
-        data_producto.db_eliminar(req.params.id_producto, function(elemento){
+        data_producto.db_get_elemento_by_id(req.params.id_producto, function(elemento){
             if (elemento){
+                //console.log('Elemento: '+elemento);
                 data_grupo.db_get_listado(function(listado){
                     if(listado){
-                        res.render('/producto/editar.jade', { dato: elemento, lista: listado });
+                        console.log('Listado: '+listado);
+                        console.log('Elemento: '+elemento);
+                        res.render('producto/editar.jade', { dato: elemento, lista: listado });
                     }else{
                         console.log('No se obtuvo el listado de la tabla "grupo"');
                     }
@@ -93,5 +97,32 @@ exports.insertar = function(req,res){
 
 // edita un producto de la tabla "producto"
 exports.editar = function(req, res){
-
+    data_producto.connect();
+    data_grupo.connect();
+    //var num_grup = req.body.num_grupo;
+    var desc_prod = req.body.desc_producto;
+    var id_grupo;
+    console.log(req.body.num_grupo);
+    data_grupo.db_get_listado(function(datos){
+        for (var i in datos) {
+            if (datos[i].num_grupo == req.body.num_grupo)
+                id_grupo = datos[i].id_grupo;
+        }
+        console.log("Número de grupo = "+id_grupo+" , descripcion "+desc_prod);
+        try{
+            data_producto.db_actualizar(id_grupo, desc_prod, req.params.id_producto, function(bandera){
+                console.log('Bandera: '+bandera);
+                if (bandera){
+                    res.redirect('/producto');
+                }else{
+                    console.log('No sirve el método insertar de producto.js.');
+                }
+            });
+        }catch(e){
+            res.redirect('/');
+            console.log(e);
+            console.log("Número de grupo = "+id_grupo+" , descripcion "+desc_prod);
+        }
+        //console.log("Número de grupo = "+id_grupo+" , descripcion "+desc_prod);
+    });
 };
