@@ -10,6 +10,7 @@ var router = express.Router();
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var producto = require('./routes/producto');
+var cproducto = require('./routes/controllerProducto');
 
 var app = express();
 
@@ -25,20 +26,30 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
 
+app.get('/', cproducto.index);
+app.get('/producto', cproducto.get_listado);
+app.get('/grupo', cproducto.get_listadoGrupo);
+app.post('/guardar/producto', cproducto.insertarProducto);
+//app.use('*', controllerProducto.index);
+//app.use('/users', users);
 
 // GESTIÓN DE RUTAS
-router.get('/producto', producto.get_listado);
-router.get('/producto/nuevo', producto.get_nuevo);
+//router.get('/producto', producto.get_listado);
+//app.get('/producto', controllerProducto.listadoProducto);
+//router.get('/producto', function(req,res,next){
+  //  res.render("un texto plano de prueba");
+
+//});
+/*console.log('desde app');
+/router.get('/producto/nuevo', producto.get_nuevo);
 router.get('/producto/:id_producto/editar', producto.get_editar);
 router.get('/producto/eliminar/:id_producto', producto.eliminar);
 router.post('/producto/nuevo', producto.insertar);
-router.post('/producto/:id_producto/editar', producto.editar);
+router.post('/producto/:id_producto/editar', producto.editar);*/
 
 
-app.use('/', router);
+//app.use('/', router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

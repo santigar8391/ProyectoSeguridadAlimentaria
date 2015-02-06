@@ -6,7 +6,7 @@ exports.get_listado = function(req, res, next){
     data_producto.connect();
     data_producto.db_get_listado(function(datos){
         //res.json(datos);
-        res.render('producto/index', { title: 'Producto', lista: datos});
+        res.render('producto/index.jade', { title: 'Producto', lista: datos});
     });
     //data.disconnect();
 }
@@ -68,7 +68,7 @@ exports.eliminar = function(req, res){
 exports.insertar = function(req,res){
     data_producto.connect();
     data_grupo.connect();
-    //var num_grup = req.body.num_grupo;
+    var num_grup = req.body.num_grupo;
     var desc_prod = req.body.desc_producto;
     var id_grupo;
     console.log(req.body.num_grupo);

@@ -32,6 +32,7 @@ exports.db_get_listado = function(cb) {
                 });
         })
         .on('end', function() {
+            console.log(data);
             cb(data);
         });
 }

@@ -34,6 +34,9 @@ exports.db_get_listado = function(cb) {
         })
         .on('end', function() {
             cb(data);
+            console.log('desde conexion a datos :D!!!');
+            console.log(data);
+            console.log('desde conexion a datos :D!!!');
         });
 }
 

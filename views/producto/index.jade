@@ -2,9 +2,7 @@
 extends ../layout
 block content
     h1= title
-    a(href='/producto/nuevo', class='btn btn-primary') Agregar Producto Nuevo
-    h2 Listado de Productos
-    if (lista)
+    div(ng-init="mostrarProducto()")
         table.table-responsive
             tr
                 th Identificador
@@ -12,14 +10,23 @@ block content
                 th Grupo
                 th &nbsp;
                 th &nbsp;
-                each dato in lista
-                    tr
-                        td #{dato.id_producto}
-                        td #{dato.desc_producto}
-                        td #{dato.num_grupo}
+                    tr(ng-repeat= "dato in datoCiclo | orderBy: 'num_grupo' ")
+                        td {{dato.id_producto}}
+                        td {{dato.desc_producto}}
+                        td {{dato.num_grupo}}
                         td
-                            a.btn.btn-default(href='/producto/#{dato.id_producto}/editar') Editar
+                            a(href='/producto', class='btn btn-primary') Editar
                         td
-                            a.btn.btn-danger(href='/producto/eliminar/'+dato.id_producto) Eliminar
-    else
-        p No tiene ningún producto en la base de datos.
+                            //a.btn.btn-danger(href='/producto/eliminar/'+dato.id_producto) Eliminar
+                            a(href='/producto', class='btn btn-primary') Eliminar
+    br
+    legend Agregar Nuevo Producto
+    //button.btn.btn-primary(type='submit' ng-click="Save()") Agregar
+    br
+    button.btn.btn-primary(type='submit' ng-click="ShowForm()" ng-hide="formVisibility") Agregar
+    div(ng-show="formVisibility" )
+        input(name="desc_producto", class="form-control", ng-model="ndesc_producto" )
+        label Número de Grupo
+        select(ng-model="nnum_grupo" ng-options="g.num_grupo as g.desc_grupo for g in datoCicloGrupo")
+            //option(ng-repeat="g in datoCicloGrupo", value=" {{g.num_grupo.selected}} " ng-model="nuevoProducto.num_grupo", selected="{{g.num_grupo}}") {{g.num_grupo}} --> {{g.desc_grupo}}
+        button.btn.btn-primary(type='submit' ng-click="Save()") Guardar

@@ -1,7 +1,9 @@
 doctype html
-html
+html(ng-app="app")
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
-  body
+    link(rel="stylesheet", href="/stylesheets/bootstrap.css")
+    script(type="text/javascript" src="/js/angular.min.js")
+    script(type="text/javascript" src="/js/consumedatos.js")
+  body(ng-controller="listaproductos")
     block content
