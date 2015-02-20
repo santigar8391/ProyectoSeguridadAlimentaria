@@ -84,6 +84,7 @@ app.controller('listaproductos', function($scope, $http) {
 
 
     $scope.editarProducto = function(){
+        //console.log( $scope.n2id_producto+"-->"+$scope.n2num_grupo+"-->"+$scope.n2desc_producto);
         $http({
             method:'POST',
             url: '/editar/',
@@ -94,10 +95,13 @@ app.controller('listaproductos', function($scope, $http) {
             }
         }).success(function(data){
             $scope.mostrarProducto();
+            console.log( $scope.n2id_producto+"-->"+$scope.n2num_grupo+"-->"+$scope.n2desc_producto);
         }).error(function(){
             $scope.mostrarProducto();
+            //console.log( $scope.n2id_producto+"-->"+$scope.n2num_grupo+"-->"+$scope.n2desc_producto);
         });
         $scope.formVisibility2=false;
+        console.log( $scope.n2id_producto+"-->"+$scope.n2num_grupo+"-->"+$scope.n2desc_producto);
     };
 
     $scope.eProducto = function(id, desc_producto, num_grupo, cb){
