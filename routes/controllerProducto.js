@@ -7,10 +7,12 @@ var data_grupo = require('../model/data_grupo.js');
 var express = require('express');
 var router = express.Router();
 
+//+++++++++RENDERIZA EL INDEX DEL PRODUCTO+++++++++++++++++++
 exports.index = function(req, res, next) {
         res.render('producto/index.jade', {title: "SEGURIDAD ALIMENTARIA"});
 }
 
+//+++++++++OBTINE EL LISTADO DEL PRODUCTO++++++++++++++++++
 exports.get_listado = function(req, res, next) {
     data_producto.connect();
     data_producto.db_get_listado(function (datos) {
@@ -18,6 +20,7 @@ exports.get_listado = function(req, res, next) {
     });
 }
 
+//+++++++++OBTIENE EL LISTADO DEL GRUPO++++++++++++++++++++
 exports.get_listadoGrupo = function(req, res, next) {
     data_grupo.connect();
     data_grupo.db_get_listado(function (datosg) {
@@ -25,12 +28,10 @@ exports.get_listadoGrupo = function(req, res, next) {
     });
 }
 
-//---------------------------------------------------------------------------
-// inserta un nuevo producto en la tabla "producto"
+//+++++++++++++++++++INSERTAR UN PRODUCTO++++++++++++++++++++++++
 exports.insertarProducto = function(req,res){
     data_producto.connect();
     data_grupo.connect();
-    //var num_grup = req.body.num_grupo;
     var desc_prod = req.query.desc_producto;
     var id_grupo;
     console.log(req.query.num_grupo);
@@ -57,28 +58,49 @@ exports.insertarProducto = function(req,res){
     });
 }
 
-//---------------------------------------------------------------------------
-
-
-
-
-// obtiene página producto
-/*module.exports = exports = {
-
-    index: function(req, res){
-      res.render('./producto/index');
-        console.log('En el index de /producto/');
-    },
-
-    listadoProducto: function(req, res){
-        res.render("este es texto desde listadoProducto");
-        /*data_producto.connect();
-        data_producto.db_get_listado(function(datoCiclo){
-            console.log(datoCiclo);
-            console.log('desde getlistado!!!');
-            //res.json(datoCiclo);
-            res.render(datoCiclo);
-    });
+//++++++++++++++++++++++ELIMINAR UN PRODUCTO.++++++++++++++++++++++++++++++
+exports.eliminar = function(req, res){
+    data_producto.connect();
+    console.log("id de producto: " + req.query._id);
+    try{
+        data_producto.db_eliminar(req.query._id, function(bandera){
+            if (bandera){
+                res.redirect('producto/index.jade');
+            }else{
+                console.log('No sirve el método eliminar de producto.js.');
+            }
+        });
+    }catch (e){
+        Console.log('Error: '+ e);
     }
-};*/
+    //++++++++++++++EDITA UN PRODUCTO++++++++++++++++++++++
+    exports.editar = function(req, res){
+        data_producto.connect();
+        data_grupo.connect();
+        var desc_prod = req.query.desc_producto;
+        var id_grupo;
+        //console.log(req.body.num_grupo);
+        data_grupo.db_get_listado(function(datos){
+            for (var i in datos) {
+                if (datos[i].num_grupo == req.query.num_grupo)
+                    id_grupo = datos[i].id_grupo;
+            }
+            //console.log("Número de grupo = "+id_grupo+" , descripcion "+desc_prod);
+            try{
+                data_producto.db_actualizar(id_grupo, desc_prod, req.query.id_producto, function(bandera){
+                    console.log('Bandera: '+bandera);
+                    if (bandera){
+                        res.redirect('producto/index.jade');
+                    }else{
+                        console.log('No sirve el método insertar de producto.js.');
+                    }
+                });
+            }catch(e){
+                res.redirect('/');
+                console.log(e);
+                console.log("Número de grupo = "+id_grupo+" , descripcion "+desc_prod);
+            }
+        });
+    };
+}
 

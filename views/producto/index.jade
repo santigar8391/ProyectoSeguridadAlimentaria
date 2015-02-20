@@ -2,31 +2,45 @@
 extends ../layout
 block content
     h1= title
-    div(ng-init="mostrarProducto()")
-        table.table-responsive
+    div(ng-init="mostrarProducto()", ng-grid="gridOptions")
+        table.table.table-striped
             tr
                 th Identificador
                 th Descripción
                 th Grupo
                 th &nbsp;
                 th &nbsp;
-                    tr(ng-repeat= "dato in datoCiclo | orderBy: 'num_grupo' ")
+                    tr(ng-repeat= "dato in datoCiclo | orderBy: 'num_grupo' " ng-model="nid_producto")
                         td {{dato.id_producto}}
                         td {{dato.desc_producto}}
                         td {{dato.num_grupo}}
                         td
-                            a(href='/producto', class='btn btn-primary') Editar
+                            button.btn.btn-primary(type='submit' ng-click="eProducto(dato.id_producto, dato.desc_producto, dato.num_grupo)") Editar
                         td
-                            //a.btn.btn-danger(href='/producto/eliminar/'+dato.id_producto) Eliminar
-                            a(href='/producto', class='btn btn-primary') Eliminar
+                            button.btn.btn-danger(type='submit' ng-click="eliminarProducto(dato.id_producto)") Eliminar
+    div(ng-show="formVisibility2")
+        legend Editar Producto
+        label(ng-model="n2id_producto") Codigo de producto: {{n2id_producto}}
+        //input(name="id_producto" class="form-control" ng-model="n2id_producto" )
+        input(name="desc2_producto" class="form-control" ng-model="n2desc_producto" )
+        label Número de Grupo
+        select(ng-model="n2num_grupo" ng-options="g.num_grupo as g.desc_grupo for g in datoCicloGrupo")
+        button.btn.btn-primary(type='submit' ng-click="editarProducto()") Guardar
     br
     legend Agregar Nuevo Producto
-    //button.btn.btn-primary(type='submit' ng-click="Save()") Agregar
     br
-    button.btn.btn-primary(type='submit' ng-click="ShowForm()" ng-hide="formVisibility") Agregar
-    div(ng-show="formVisibility" )
-        input(name="desc_producto", class="form-control", ng-model="ndesc_producto" )
+    button.btn.btn-primary(type='submit' ng-click="ShowForm()" ng-hide="formVisibility") Agregar Producto
+    div(ng-show="formVisibility")
+        label Ingrese descripcion del producto
+        input(name="desc_producto" class="form-control" ng-model="ndesc_producto" )
         label Número de Grupo
         select(ng-model="nnum_grupo" ng-options="g.num_grupo as g.desc_grupo for g in datoCicloGrupo")
-            //option(ng-repeat="g in datoCicloGrupo", value=" {{g.num_grupo.selected}} " ng-model="nuevoProducto.num_grupo", selected="{{g.num_grupo}}") {{g.num_grupo}} --> {{g.desc_grupo}}
         button.btn.btn-primary(type='submit' ng-click="Save()") Guardar
+
+    //div(ng-show="formVisibility2")
+        label Editar Producto
+        input(name="id_producto" class="form-control" ng-model="n2id_producto" )
+        input(name="desc2_producto" class="form-control" ng-model="n2desc_producto" )
+        label Número de Grupo
+        select(ng-model="n2num_grupo" ng-options="g.num_grupo as g.desc_grupo for g in datoCicloGrupo")
+        button.btn.btn-primary(type='submit' ng-click="editarProducto()") Guardar

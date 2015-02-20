@@ -4,38 +4,36 @@
 //-------------------------------------
 var app = angular.module('app', []);
 //-------------------------------------
-
+//++++++++++++LISTA LOS PRODUCTOS++++++++++++++++++++++++++++++
 app.controller('listaproductos', function($scope, $http) {
-
     $scope.mostrarProducto = function(){
-
         $http.get('/producto')
             .success(function (datos) {
-                console.log(datos);
                 $scope.datoCiclo = datos;
                 $scope.mostrarGrupo();
             }).error(function (data) {
                 console.log('Error: ' + data);
             });
-
     }
 
-
-    $scope.mensaje = " Haciendo pruebas desde consume datos -> variable mensaje ";
-
+    $scope.gridOptions = {
+        datos: 'datoCiclo'
+    };
+//++++++++++LISTA GRUPO++++++++++++++++++++++++
     $scope.mostrarGrupo = function(){
         $http.get('/grupo')
             .success(function (datosGrupo){
-                console.log(datosGrupo);
                 $scope.datoCicloGrupo = datosGrupo;
+                $scope.nnum_grupo = datosGrupo[0].desc_grupo;
             }).error(function(data){
                 console.log('Error: ' + data);
             });
     }
+
     $scope.num_grupo ='';
     $scope.desc_producto ='';
-
-    $scope.Save= function(){
+//++++++++++++++++++ GUARDA UN PRODUCTO+++++++++++++++++++++
+    $scope.Save = function(){
     $http({
         method: 'POST',
         url: '/guardar/producto',
@@ -45,25 +43,70 @@ app.controller('listaproductos', function($scope, $http) {
             desc_producto: $scope.ndesc_producto
         }
     }).success(function(data) {
-        /*if(typeof(data) == 'object'){
-            $scope.limpiarDatos();
-            $scope.cargarClientes();
-        }else{
-            alert('Error al intentar guardar el cliente.');
-        }*/
-        $scope.mostrarProducto();
+        //$scope.mostrarProducto();
     }).error(function() {
         $scope.mostrarProducto();
-        //alert('Error al intentar guardar producto.');
     });
         $scope.formVisibility=false;
         console.log($scope.formVisibility);
     };
-
+//++++++++++++++++++++++++++++++++++++++++++++++
     $scope.formVisibility=false;
+
+    $scope.hideForm = function(){
+        $scope.formVisibility = false;
+    }
+//++++++++++++++++++++++++++++++++++++++++++++++
     $scope.ShowForm=function(){
         $scope.formVisibility=true;
-        console.log($scope.formVisibility);
+        //console.log($scope.formVisibility);
+        //$scope.nnum_grupo = $scope.datoCicloGrupo[0].desc_grupo;
+    }
+//++++++++++++++++++++++++++++++++++++++++++++++
+
+//+++++++++++ELIMINA UN PRODUCTO+++++++++++++++
+    $scope._id='';
+    $scope.eliminarProducto = function(id){
+        $http({
+                method: 'DELETE',
+                url: '/eliminar/',// + id,
+                params: {
+                    _id: id
+                }
+            }).
+                success(function(data) {
+                $scope.mostrarProducto();
+                }).
+                error(function() {
+                    $scope.mostrarProducto();
+                });
+        }
+
+
+    $scope.editarProducto = function(){
+        $http({
+            method:'POST',
+            url: '/editar/',
+            params:{
+                _id: $scope.n2id_producto,
+                num_grupo:  $scope.n2num_grupo,
+                desc_producto: $scope.n2desc_producto
+            }
+        }).success(function(data){
+            $scope.mostrarProducto();
+        }).error(function(){
+            $scope.mostrarProducto();
+        });
+        $scope.formVisibility2=false;
+    };
+
+    $scope.eProducto = function(id, desc_producto, num_grupo, cb){
+        $scope.mostrarProducto();
+        $scope.n2id_producto = id,
+        $scope.n2desc_producto = desc_producto;
+        $scope.n2num_grupo = num_grupo;
+        $scope.formVisibility2=true;
+        //hideForm();
     }
 
 });

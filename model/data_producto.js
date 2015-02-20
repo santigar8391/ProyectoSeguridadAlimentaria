@@ -86,8 +86,13 @@ exports.db_get_elemento_by_id = function(id_producto, cb) {
         });
 }
 
-exports.db_actualizar = function (id_grupo, desc_prod, cb){
-    client.query("UPDATE producto SET id_grupo = ?, desc_producto= ? WHERE id_producto = ?;",[id_grupo, desc_producto, id_producto])
+exports.db_actualizar = function (id_grupo, desc_prod, id_producto, cb){
+    //client.query("UPDATE producto SET id_grupo = ?, desc_producto= ? WHERE id_producto = ?;",[id_grupo, desc_prod, id_producto])
+    //client.query("UPDATE producto SET id_grupo = ?, desc_producto= ? WHERE id_producto = :var_id_producto;",[id_grupo, desc_prod], {var_id_producto:id_producto})
+    //client.query("INSERT INTO producto (id_grupo, desc_producto) VALUES (?, ?);",[id_grupo, desc_producto])
+
+    var pq = client.prepare('UPDATE producto SET id_grupo = :var_id_grupo, desc_producto = :var_desc_producto WHERE id_producto = :var_id_producto;');
+    client.query(pq({ var_id_grupo: id_grupo, var_desc_producto: desc_prod, var_id_producto: id_producto}))
         .on('error', function(err) {
             console.log('Result error: ' + inspect(err));
         })
